@@ -32,3 +32,13 @@ code {
 .search-item:active {
   background-color: aquamarine;
 }
+
+/* Buttons
+--------------------------------------------------------------------------------------*/
+.begin-bttn {
+  width: 100px;
+  background-color:purple;
+  color: white;
+  margin: 10px 0;
+
+}

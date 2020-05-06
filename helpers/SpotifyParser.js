@@ -45,7 +45,6 @@ function parseTopTracks (response){
         list.push({
             name: tracks[i].name,
             id: tracks[i].id,
-            album: tracks[i].album.name,
             preview_url: tracks[i].preview_url,
         });
     }
