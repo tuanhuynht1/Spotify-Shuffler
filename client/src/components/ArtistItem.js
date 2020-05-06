@@ -3,10 +3,11 @@ import {GlobalContext} from '../GlobalContext';
 
 export const ArtistItem = ({artist}) => {
   
-    const {setArtists, fetchIDs} = useContext(GlobalContext);
+    const {setArtists, setTracks, fetchIDs} = useContext(GlobalContext);
 
     const remove = () => {
         setArtists(prev => prev.filter( a => a.id !== artist.id));
+        setTracks(prev => prev.filter(album => album.artist_id !== artist.id));
     }
 
     return(
