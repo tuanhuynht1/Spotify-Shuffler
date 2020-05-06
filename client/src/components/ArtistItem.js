@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {GlobalContext} from '../GlobalContext';
 
 export const ArtistItem = ({artist}) => {
   
-    
+    const {setArtists} = useContext(GlobalContext);
+
+    const remove = () => {
+        setArtists(prev => prev.filter( a => a.id !== artist.id));
+    }
+
     return(
         <div className='artists-item'>
             {
@@ -11,7 +17,8 @@ export const ArtistItem = ({artist}) => {
                 : <span></span>
             }
             <h2>{artist.name}</h2>
-            <p>Popularity: {artist.popularity}</p>
+            <p>Popularity: {artist.popularity} <button onClick={remove}>Remove</button> </p>
+            
         </div>
     )
 }
