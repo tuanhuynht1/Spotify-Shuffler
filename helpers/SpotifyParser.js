@@ -17,6 +17,24 @@ function parseArtists (response){
     return list;
 }
 
+function parseAlbums (response){
+    let albums = response.items;
+    // console.log(artists);
+    let list = [];
+    for (let i = 0; i < albums.length; i++){
+
+        // don't add duplicate albums with different ids
+        if(!list.some(album => album.name === albums[i].name)){
+            list.push({
+                name: albums[i].name,
+                id: albums[i].id,
+            });
+        }
+
+    }
+    return list;
+}
+
 function parseTopTracks (response){
     let tracks = response.tracks;
     // console.log(artists);
@@ -38,4 +56,4 @@ function parseTopTracks (response){
 }
 
 
-module.exports = {parseArtists, parseTopTracks};
+module.exports = {parseArtists, parseTopTracks, parseAlbums};
