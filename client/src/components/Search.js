@@ -32,11 +32,15 @@ export const Search = () => {
 
     return (
         <div className='search'>
-            <input id='search-bar' placeholder='Add artist...' onChange={onType}/>
+             {/* search bar */}
+            <input id='search-bar' placeholder='Add artist...' onChange={onType} autoComplete='off'/>
+            
+            {/* for each result in current search (if search bar not empty) render the search result as dropdown */}
             { document.getElementById('search-bar') && document.getElementById('search-bar').value.trim() !== '' 
               ? results.map( artist=> <SearchItem artist={artist} key={artist.id}/>)
               : <div></div>
             }
+
         </div>
     )
 }

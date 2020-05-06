@@ -28,6 +28,7 @@ function parseAlbums (response){
             list.push({
                 name: albums[i].name,
                 id: albums[i].id,
+                image: albums[i].images[0]
             });
         }
 
@@ -41,19 +42,31 @@ function parseTopTracks (response){
     let list = [];
     for (let i = 0; i < tracks.length; i++){
 
-        // choose most recent image if available
-        const image = tracks[i].album.images.length ? tracks[i].album.images[0] : null;
-
         list.push({
             name: tracks[i].name,
             id: tracks[i].id,
             album: tracks[i].album.name,
             preview_url: tracks[i].preview_url,
-            images: image
+        });
+    }
+    return list;
+}
+
+function parseTracks (response){
+    let tracks = response.items;
+    // console.log(artists);
+    let list = [];
+    for (let i = 0; i < tracks.length; i++){
+
+
+        list.push({
+            name: tracks[i].name,
+            id: tracks[i].id,
+            preview_url: tracks[i].preview_url,
         });
     }
     return list;
 }
 
 
-module.exports = {parseArtists, parseTopTracks, parseAlbums};
+module.exports = {parseArtists, parseTopTracks, parseAlbums, parseTracks};

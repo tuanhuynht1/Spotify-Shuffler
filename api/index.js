@@ -1,7 +1,7 @@
 const querystring = require('querystring');
 const request = require('request');
 
-const {parseArtists, parseAlbums} = require('../helpers/SpotifyParser');
+const {parseArtists, parseAlbums, parseTracks} = require('../helpers/SpotifyParser');
 
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
@@ -13,7 +13,7 @@ const router = require('express').Router()
 
 router.get('/login', (req, res) => {
 	// scope defines what app can access, add streaming scope for premium
-	const scope = 'user-read-private user-read-email user-read-playback-state';
+	const scope = 'user-read-private user-read-email user-read-playback-state streaming';
 	res.redirect(
 		'https://accounts.spotify.com/authorize?' +
 			querystring.stringify({
@@ -97,7 +97,7 @@ router.get('/artist', (req,res) =>{
     });
 })
 
-router.get('/albums/:id', (req,res) =>{
+router.get('/albums-by-artist/:id', (req,res) =>{
 	const { id } = req.params;
 	const { useParser } = req.query;
     if(!id){res.status(400).send({error:'require artist id!'})}
@@ -106,7 +106,7 @@ router.get('/albums/:id', (req,res) =>{
     const token = req.header('Token');
     const albumOptions = {
         'method': 'GET',
-        'url': `https://api.spotify.com/v1/artists/${id}/albums?market=US`,
+        'url': `https://api.spotify.com/v1/artists/${id}/albums`,
         'headers': {
           'Authorization': 'Bearer ' + token
         }
@@ -129,5 +129,40 @@ router.get('/albums/:id', (req,res) =>{
         }
 	});
 })
+
+router.get('/tracks-by-album/:id', (req,res) =>{
+	const { id } = req.params;
+	const { useParser } = req.query;
+    if(!id){res.status(400).send({error:'require album id!'})}
+
+    // configure spotify request
+    const token = req.header('Token');
+    const albumOptions = {
+        'method': 'GET',
+        'url': `https://api.spotify.com/v1/albums/${id}/tracks`,
+        'headers': {
+          'Authorization': 'Bearer ' + token
+        }
+	};
+	
+    // request all albums that matches the artist query
+    request(albumOptions, function (error, response) { 
+        if (!error && response.statusCode === 200) {
+            if (useParser === 'true'){
+                // if useParser = true, return [ ... { name,id,popularity,image}]
+                res.send(parseTracks(JSON.parse(response.body)));
+            }
+            else{
+                // send the whole body
+                res.send(JSON.parse(response.body));
+            }
+        }
+        else{
+            res.status(response.statusCode).send({error: response.statusMessage});
+        }
+	});
+})
+
+
 
 module.exports = router;
