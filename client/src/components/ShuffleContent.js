@@ -2,7 +2,7 @@ import React, {Fragment, useState, useContext, useEffect} from 'react';
 import {GlobalContext} from '../GlobalContext';
 
 export const ShuffleContent = () => {
-
+    const playlist_size = 6;
     const {tracks, setTracks} = useContext(GlobalContext);
     const [spots, setSpots] = useState([]);
 
@@ -20,9 +20,6 @@ export const ShuffleContent = () => {
             locked: false
         }
 
-        // fill in a new spot
-        setSpots(prev => [... prev, newSpot]);
-
         // remove track from tracklist once picked
         let temp = tracks;
         temp[album_index].tracks.splice(track_index,1);
@@ -31,19 +28,41 @@ export const ShuffleContent = () => {
             temp.splice(album_index,1);
         }
         setTracks(temp);
+
+        return newSpot;
     }
 
-    useEffect(() => {
-        for (let i = 0; i < 6; i++){
-            pickRandom();
+    const shuffle = () => {
+        // filter out any spot that's not locked
+        let locked_picks = spots.filter(spot => spot.locked);
+        let new_picks = [];
+        for (let i = 0; i < (playlist_size - locked_picks); i++){
+            if (tracks.length !== 0){
+                new_picks.push(pickRandom());
+            }
         }
+        setSpots(locked_picks.concat(new_picks));
+    }
+
+    // initial shuffle
+    useEffect(() => {
+        let initialSpots = [];
+        for (let i = 0; i < 6; i++){
+            // if there are songs left, pick a random song to fill initial spots
+            if (tracks.length === 0){
+                break;
+            }
+            initialSpots.push(pickRandom());
+        }
+        setSpots(initialSpots);
     }, []);
 
-    console.log(spots);
+    // console.log(spots);
 
     return (
         <Fragment>
-            Shuffle
+            <button onClick={shuffle}>Shuffle</button>
+            {spots.map( song => <p key={song.id}> <img src={song.image.url}  width='200px' alt={song.name}/> {song.name} </p>)}
         </Fragment>
-    )
+    )   
 }
