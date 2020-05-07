@@ -1,10 +1,11 @@
 import React, {Fragment, useState, useContext, useEffect} from 'react';
 import {GlobalContext} from '../GlobalContext';
+import {Pick} from './Pick';
 
 export const ShuffleContent = () => {
     const playlist_size = 6;
     const {tracks, setTracks} = useContext(GlobalContext);
-    const [spots, setSpots] = useState([]);
+    const [picks, setPicks] = useState([]);
 
     const pickRandom = () => {
         // pick a random album
@@ -12,7 +13,7 @@ export const ShuffleContent = () => {
         // pick a random track in that album
         let track_index = Math.floor(Math.random() * tracks[album_index].tracks.length);
 
-        const newSpot = {
+        const newPick = {
             name: tracks[album_index].tracks[track_index].name,
             id: tracks[album_index].tracks[track_index].id,
             album: tracks[album_index].album,
@@ -29,40 +30,48 @@ export const ShuffleContent = () => {
         }
         setTracks(temp);
 
-        return newSpot;
+        return newPick;
     }
 
     const shuffle = () => {
-        // filter out any spot that's not locked
-        let locked_picks = spots.filter(spot => spot.locked);
+        // filter out any picks that's not locked
+        let locked_picks = picks.filter(pick => pick.locked);
         let new_picks = [];
-        for (let i = 0; i < (playlist_size - locked_picks); i++){
+        for (let i = 0; i < (playlist_size - locked_picks.length); i++){
             if (tracks.length !== 0){
                 new_picks.push(pickRandom());
             }
         }
-        setSpots(locked_picks.concat(new_picks));
+        setPicks(locked_picks.concat(new_picks));
+    }
+
+    const setLockStatus = (index, status) => {
+        let temp = picks;
+        temp[index].locked = status;
+        setPicks(temp);
     }
 
     // initial shuffle
     useEffect(() => {
-        let initialSpots = [];
+        let initialpicks = [];
         for (let i = 0; i < 6; i++){
-            // if there are songs left, pick a random song to fill initial spots
+            // if there are songs left, pick a random song to fill initial picks
             if (tracks.length === 0){
                 break;
             }
-            initialSpots.push(pickRandom());
+            initialpicks.push(pickRandom());
         }
-        setSpots(initialSpots);
+        setPicks(initialpicks);
     }, []);
 
-    // console.log(spots);
+    // console.log(picks);
 
     return (
         <Fragment>
             <button onClick={shuffle}>Shuffle</button>
-            {spots.map( song => <p key={song.id}> <img src={song.image.url}  width='200px' alt={song.name}/> {song.name} </p>)}
+            {picks.map( (song,i) => 
+                <Pick song={song} key={i} index={i} setLockStatus={setLockStatus}/>
+            )}
         </Fragment>
     )   
 }
