@@ -1,16 +1,8 @@
-import React from 'react';
-// import {GlobalContext} from '../GlobalContext';
-// import axios from 'axios';
+import React, {useContext} from 'react';
 
-export const BeginBttn = () => {
+export const BeginBttn = ({setShuffleMode}) => {
   
-
-
-    const onClick = () => {
-        console.log('now!')
-    }
-
     return(
-        <button onClick={onClick} className='begin-bttn'>Begin</button>
+        <button onClick={() => setShuffleMode(true) } className='begin-bttn'>Begin</button>
     )
 }

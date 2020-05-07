@@ -6,6 +6,7 @@ export const Artists = () => {
   
     const {artists} = useContext(GlobalContext);
     
+    // container showcasing all the artists chosen
     return(
         <div className='artists-showcase'>
             {

@@ -6,25 +6,29 @@ import {SearchItem} from './SearchItem'
 
 export const Search = () => {
 
+    // keep track of current search results
     const [results, setResults] = useState([]);
     const {token} = useContext(GlobalContext);
 
     const onType = (e) => {
+        // make sure field not empty, if so, clear out results
         if (e.target.value.trim() === ''){
             setResults([]);
         }
         else{
+            // pass query into get call
             const query = qs.stringify({
                 artist: e.target.value,
                 useParser: 'true'
             });
-            console.log(query);
+            // get artist that matches search query
             axios
             .get(`api/artist?${query}`,{
                 headers: {
                     Token: token
                 }
             })
+            // set search results
             .then(res => setResults(res.data))
             .catch(e => console.error(e));
         }

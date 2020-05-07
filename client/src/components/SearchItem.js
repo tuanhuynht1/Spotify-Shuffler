@@ -7,7 +7,7 @@ export const SearchItem = ({artist}) => {
     const {token, artists,setArtists, tracks, setTracks, setFetchIDs} = useContext(GlobalContext);
 
     const onSelect =() => {
-        // add id to the fetch queue
+        // add id to the fetch queue, add artist to artist list
         setFetchIDs(prev =>  [...prev, artist.id] );
         setArtists(prev => [...prev, artist]);
         
@@ -28,6 +28,7 @@ export const SearchItem = ({artist}) => {
                     }
                 }));
             }
+            // get all tracks from each album
             await Promise.all(promises)
             .then( res => {
                 for (let i = 0; i < res.length; i++){
@@ -41,6 +42,7 @@ export const SearchItem = ({artist}) => {
                 }
             })
             .catch(e => console.error(e));
+            // once results come back, remove from fetch queue
             setFetchIDs(prev =>  prev.filter( id => id !== artist.id) );
         })
         .catch(e => console.error(e));
@@ -48,6 +50,7 @@ export const SearchItem = ({artist}) => {
 
     console.log(tracks)
 
+    // if the artist has already been picked or the max number of artists have been chosen, render item as blocked
     if(artists.some(a => a.id === artist.id) || artists.length > 2){
         return (
             <div className='search-item blocked'>

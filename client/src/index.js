@@ -4,6 +4,8 @@ import {App} from './App';
 import {GlobalProvider} from './GlobalContext'
 import './index.css';
 
+
+// provide all react elements with global context
 render(
   <GlobalProvider>
     <App/>

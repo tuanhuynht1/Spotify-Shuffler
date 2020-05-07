@@ -1,17 +1,19 @@
 import React, { useEffect, useContext } from 'react';
 import {Login} from './components/Login';
-import {Main} from './components/Main';
+import {Content} from './components/Content';
 import {GlobalContext} from './GlobalContext';
 
 export const App = () => {
   
-  const {token, setToken} = useContext(GlobalContext);
+	// globals
+  	const {token, setToken} = useContext(GlobalContext);
 
-	// check for authen token
+	// check for authen token by parsing url
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
     setToken(params.get('access_token'));
 	}, [token, setToken]);
 
-	return token ? <Main /> : <Login />;
+	// if authenticated, go to main content, else render login form
+	return token ? <Content /> : <Login />;
 }
