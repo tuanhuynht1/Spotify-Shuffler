@@ -7,7 +7,8 @@ const apiRouter = require('./api');
 
 app
 .use(express.static(__dirname + '/client/build')) // run React app
-.use('/api', apiRouter)
+.use(express.json())
+.use('/api', apiRouter)	
 
 // All routes get handled by React
 app.get('*', function (req, res) {

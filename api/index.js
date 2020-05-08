@@ -185,7 +185,32 @@ router.get('/tracks-by-album/:id', (req,res) =>{
 	});
 })
 
+router.post('/create-playlist/:id', (req,res) =>{
+	const { id } = req.params;
+    if(!id){res.status(400).send({error:'require user id!'})}
 
+    // configure spotify request
+    const token = req.header('Token');
+    const options = {
+        'method': 'POST',
+        'url': `https://api.spotify.com/v1/users/${id}/playlists`,
+        'headers': {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(req.body)
+    };
+    
+    // request playlist creation detail
+    request(options, function (error, response) { 
+        if (!error && response.statusCode === 201) {
+            res.send(JSON.parse(response.body));
+        }
+        else{
+            res.status(response.statusCode).send({error: response.statusMessage});
+        }
+	});
+})
 
 
 
