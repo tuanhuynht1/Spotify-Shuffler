@@ -16,6 +16,7 @@ export const ShuffleContent = () => {
         const newPick = {
             name: tracks[album_index].tracks[track_index].name,
             id: tracks[album_index].tracks[track_index].id,
+            uri: tracks[album_index].tracks[track_index].uri,
             album: tracks[album_index].album,
             image: tracks[album_index].image,
             locked: false
@@ -64,7 +65,7 @@ export const ShuffleContent = () => {
         setPicks(initialpicks);
     }, []);
 
-    // console.log(picks);
+    console.log(picks);
 
     return (
         <Fragment>

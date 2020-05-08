@@ -61,7 +61,7 @@ function parseTracks (response){
         list.push({
             name: tracks[i].name,
             id: tracks[i].id,
-            preview_url: tracks[i].preview_url,
+            uri: tracks[i].uri
         });
     }
     return list;
