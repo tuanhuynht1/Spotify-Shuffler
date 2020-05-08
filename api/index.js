@@ -217,11 +217,11 @@ router.post('/playlist/:id', (req,res) =>{
     if(!id){res.status(400).send({error:'require user id!'})}
 
     // comma separated uris
-    const query = querystring.stringify(req.body);
+    const uris = querystring.stringify(req.body);
     const token = req.header('Token');
     const options = {
         'method': 'POST',
-        'url': `https://api.spotify.com/v1/playlists/${id}/tracks?${query}`,
+        'url': `https://api.spotify.com/v1/playlists/${id}/tracks?${uris}`,
         'headers': {
             'Authorization': 'Bearer ' + token
         }
