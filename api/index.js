@@ -66,6 +66,35 @@ router.get('/callback', (req, res) => {
 	});
 });
 
+router.get('/user', (req,res) =>{
+
+    // configure spotify request
+    const token = req.header('Token');
+    const options = {
+        'method': 'GET',
+        'url': 	'https://api.spotify.com/v1/me',
+        'headers': {
+          'Authorization': 'Bearer ' + token
+        }
+    };
+    // request user info based on their request token
+    request(options, function (error, response) { 
+        if (!error && response.statusCode === 200) {
+            if (false){
+                // if useParser = true, return [ ... { name,id,popularity,image}]
+                res.send(parseArtists(JSON.parse(response.body)));
+            }
+            else{
+                // send the whole body
+                res.send(JSON.parse(response.body));
+            }
+        }
+        else{
+            res.status(response.statusCode).send({error: response.statusMessage});
+        }
+    });
+})
+
 router.get('/artist', (req,res) =>{
     const { artist, useParser } = req.query;
     if(!artist){res.status(400).send({error:'require artist to search'})}
@@ -104,7 +133,7 @@ router.get('/albums-by-artist/:id', (req,res) =>{
 
     // configure spotify request
     const token = req.header('Token');
-    const albumOptions = {
+    const options = {
         'method': 'GET',
         'url': `https://api.spotify.com/v1/artists/${id}/albums`,
         'headers': {
@@ -113,7 +142,7 @@ router.get('/albums-by-artist/:id', (req,res) =>{
 	};
 	
     // request all albums that matches the artist query
-    request(albumOptions, function (error, response) { 
+    request(options, function (error, response) { 
         if (!error && response.statusCode === 200) {
             if (useParser === 'true'){
                 // if useParser = true, return [ ... { name,id,popularity,image}]
@@ -137,7 +166,7 @@ router.get('/tracks-by-album/:id', (req,res) =>{
 
     // configure spotify request
     const token = req.header('Token');
-    const albumOptions = {
+    const options = {
         'method': 'GET',
         'url': `https://api.spotify.com/v1/albums/${id}/tracks`,
         'headers': {
@@ -146,7 +175,7 @@ router.get('/tracks-by-album/:id', (req,res) =>{
 	};
 	
     // request all albums that matches the artist query
-    request(albumOptions, function (error, response) { 
+    request(options, function (error, response) { 
         if (!error && response.statusCode === 200) {
             if (useParser === 'true'){
                 // if useParser = true, return [ ... { name,id,popularity,image}]
@@ -162,6 +191,8 @@ router.get('/tracks-by-album/:id', (req,res) =>{
         }
 	});
 })
+
+
 
 
 
