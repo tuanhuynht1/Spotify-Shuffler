@@ -198,10 +198,10 @@ router.post('/create-playlist/:id', (req,res) =>{
           'Authorization': 'Bearer ' + token,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(req.body)
+        body: JSON.stringify(req.body) // name, description, public
     };
-    
-    // request playlist creation detail
+    // spotify:track:7stcuQtnHL7C6XdPvpwywv,spotify:track:312WNtMs3F28cUukaPY9bo,spotify:track:1opARDDYaOeE1QUdwXmBGu
+    // post and return playlist creation detail
     request(options, function (error, response) { 
         if (!error && response.statusCode === 201) {
             res.send(JSON.parse(response.body));
@@ -212,6 +212,31 @@ router.post('/create-playlist/:id', (req,res) =>{
 	});
 })
 
+router.post('/playlist/:id', (req,res) =>{
+    const { id } = req.params
+    if(!id){res.status(400).send({error:'require user id!'})}
+
+    // comma separated uris
+    const query = querystring.stringify(req.body);
+    const token = req.header('Token');
+    const options = {
+        'method': 'POST',
+        'url': `https://api.spotify.com/v1/playlists/${id}/tracks?${query}`,
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    };
+
+    // post and return playlist snapshot id
+    request(options, function (error, response) { 
+        if (!error && response.statusCode === 201) {
+            res.send(JSON.parse(response.body));
+        }
+        else{
+            res.status(response.statusCode).send({error: response.statusMessage});
+        }
+	});
+})
 
 
 module.exports = router;
