@@ -52,6 +52,10 @@ export const ShuffleContent = () => {
         setPicks(temp);
     }
 
+    // const saveToPlaylist = () => {
+
+    // }
+
     // initial shuffle
     useEffect(() => {
         let initialpicks = [];
@@ -73,6 +77,7 @@ export const ShuffleContent = () => {
             {picks.map( (song,i) => 
                 <Pick song={song} key={i} index={i} setLockStatus={setLockStatus}/>
             )}
+            <button >Save to Playlist</button>
         </Fragment>
     )   
 }

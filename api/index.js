@@ -13,7 +13,7 @@ const router = require('express').Router()
 
 router.get('/login', (req, res) => {
 	// scope defines what app can access, add streaming scope for premium
-	const scope = 'user-read-private user-read-email user-read-playback-state streaming';
+	const scope = 'playlist-modify-public user-read-private user-read-email user-read-playback-state streaming';
 	res.redirect(
 		'https://accounts.spotify.com/authorize?' +
 			querystring.stringify({

@@ -20,6 +20,7 @@ export const Content = () => {
         })
         .then( res => {
             setUser(res.data);
+            console.log(res.data);
         })
         .catch(e => console.error(e));
     }, [token]);
