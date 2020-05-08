@@ -67,7 +67,6 @@ router.get('/callback', (req, res) => {
 });
 
 router.get('/user', (req,res) =>{
-
     // configure spotify request
     const token = req.header('Token');
     const options = {
@@ -80,14 +79,8 @@ router.get('/user', (req,res) =>{
     // request user info based on their request token
     request(options, function (error, response) { 
         if (!error && response.statusCode === 200) {
-            if (false){
-                // if useParser = true, return [ ... { name,id,popularity,image}]
-                res.send(parseArtists(JSON.parse(response.body)));
-            }
-            else{
-                // send the whole body
-                res.send(JSON.parse(response.body));
-            }
+            // send the whole body
+            res.send(JSON.parse(response.body));    
         }
         else{
             res.status(response.statusCode).send({error: response.statusMessage});

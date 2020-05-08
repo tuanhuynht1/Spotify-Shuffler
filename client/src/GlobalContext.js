@@ -8,6 +8,7 @@ export const GlobalProvider = (props) => {
     const [artists, setArtists] = useState([]);
     const [tracks, setTracks] = useState([]);
     const [fetchIDs, setFetchIDs] = useState([]);
+    const [user, setUser] = useState(null);
 
     return (
         <GlobalContext.Provider 
@@ -20,6 +21,8 @@ export const GlobalProvider = (props) => {
             setTracks: setTracks,
             fetchIDs: fetchIDs,
             setFetchIDs: setFetchIDs,
+            user: user,
+            setUser: setUser
         }}>
             {props.children}
         </GlobalContext.Provider>
