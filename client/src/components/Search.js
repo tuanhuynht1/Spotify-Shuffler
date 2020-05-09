@@ -8,7 +8,7 @@ export const Search = () => {
 
     // keep track of current search results
     const [results, setResults] = useState([]);
-    const {token} = useContext(GlobalContext);
+    const {token, setToken} = useContext(GlobalContext);
 
     const onType = (e) => {
         // make sure field not empty, if so, clear out results
@@ -30,12 +30,24 @@ export const Search = () => {
             })
             // set search results
             .then(res => setResults(res.data))
-            .catch(e => console.error(e));
+            .catch(e => {
+                // unauthorized
+                if (e.response.status === 401){
+                    // refresh token
+                    const params = new URLSearchParams(window.location.search);
+                    const refresh = params.get('refresh_token');
+                    axios
+                    .get(`/api/refresh?refresh_token=${refresh}`)
+                    .then(res => {
+                        setToken(res.data.access_token);
+                    })
+                };
+            });
         }
     }
 
     return (
-        <div className='search'>
+        <div className='search-container'>
              {/* search bar */}
             <input id='search-bar' placeholder='Add artist...' onChange={onType} autoComplete='off'/>
             

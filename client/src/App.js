@@ -10,8 +10,10 @@ export const App = () => {
 
 	// check for authen token by parsing url
 	useEffect(() => {
-		const params = new URLSearchParams(window.location.search);
-    setToken(params.get('access_token'));
+		if (token === ''){
+			const params = new URLSearchParams(window.location.search);
+    		setToken(params.get('access_token'));
+		}
 	}, [token, setToken]);
 
 	// if authenticated, go to main content, else render login form

@@ -4,12 +4,12 @@ import axios from 'axios';
 
 export const SearchItem = ({artist}) => {
 
-    const {token, artists,setArtists, tracks, setTracks, setFetchIDs} = useContext(GlobalContext);
+    const {token, artists,setArtists, setTracks, setFetchIDs} = useContext(GlobalContext);
 
     const onSelect =() => {
         // add id to the fetch queue, add artist to artist list
         setFetchIDs(prev =>  [...prev, artist.id] );
-        setArtists(prev => [...prev, artist]);
+        setArtists(prev => [artist, ...prev]);
         
         // get all albums from artist 
         axios
@@ -48,7 +48,7 @@ export const SearchItem = ({artist}) => {
         .catch(e => console.error(e));
     }
 
-    console.log(tracks)
+    // console.log(tracks)
 
     // if the artist has already been picked or the max number of artists have been chosen, render item as blocked
     if(artists.some(a => a.id === artist.id) || artists.length > 9){

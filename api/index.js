@@ -48,7 +48,7 @@ router.get('/callback', (req, res) => {
 
 			// we can also pass the token to the browser to make requests from there
 			res.redirect(
-				'/?' +
+				'http://localhost:3000/?' +
 					querystring.stringify({
 						access_token: access_token,
 						refresh_token: refresh_token,
@@ -64,6 +64,29 @@ router.get('/callback', (req, res) => {
 			);
 		}
 	});
+});
+
+router.get('/refresh', (req, res) => {
+    // requesting access token from refresh token
+    let refresh_token = req.query.refresh_token;
+    let authOptions = {
+      url: 'https://accounts.spotify.com/api/token',
+      headers: { 'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64')) },
+      form: {
+        grant_type: 'refresh_token',
+        refresh_token: refresh_token
+      },
+      json: true
+    };
+  
+    request.post(authOptions, function(error, response, body) {
+      if (!error && response.statusCode === 200) {
+        let access_token = body.access_token;
+        res.send({
+          'access_token': access_token
+        });
+      }
+    });
 });
 
 router.get('/user', (req,res) =>{
@@ -86,7 +109,7 @@ router.get('/user', (req,res) =>{
             res.status(response.statusCode).send({error: response.statusMessage});
         }
     });
-})
+});
 
 router.get('/artist', (req,res) =>{
     const { artist, useParser } = req.query;
@@ -117,7 +140,7 @@ router.get('/artist', (req,res) =>{
             res.status(response.statusCode).send({error: response.statusMessage});
         }
     });
-})
+});
 
 router.get('/albums-by-artist/:id', (req,res) =>{
 	const { id } = req.params;
@@ -150,7 +173,7 @@ router.get('/albums-by-artist/:id', (req,res) =>{
             res.status(response.statusCode).send({error: response.statusMessage});
         }
 	});
-})
+});
 
 router.get('/tracks-by-album/:id', (req,res) =>{
 	const { id } = req.params;
@@ -183,7 +206,7 @@ router.get('/tracks-by-album/:id', (req,res) =>{
             res.status(response.statusCode).send({error: response.statusMessage});
         }
 	});
-})
+});
 
 router.post('/create-playlist/:id', (req,res) =>{
 	const { id } = req.params;
@@ -210,7 +233,7 @@ router.post('/create-playlist/:id', (req,res) =>{
             res.status(response.statusCode).send({error: response.statusMessage});
         }
 	});
-})
+});
 
 router.post('/playlist/:id', (req,res) =>{
     const { id } = req.params
@@ -236,7 +259,7 @@ router.post('/playlist/:id', (req,res) =>{
             res.status(response.statusCode).send({error: response.statusMessage});
         }
 	});
-})
+});
 
 
 module.exports = router;
