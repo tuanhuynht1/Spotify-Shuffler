@@ -51,7 +51,7 @@ export const SearchItem = ({artist}) => {
     console.log(tracks)
 
     // if the artist has already been picked or the max number of artists have been chosen, render item as blocked
-    if(artists.some(a => a.id === artist.id) || artists.length > 2){
+    if(artists.some(a => a.id === artist.id) || artists.length > 9){
         return (
             <div className='search-item blocked'>
                 {artist.image 
