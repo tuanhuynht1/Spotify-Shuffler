@@ -1,4 +1,4 @@
-import React, {Fragment, useContext} from 'react';
+import React, {useContext} from 'react';
 import {Search} from './Search';
 import {Artists} from './Artists';
 import {BeginBttn} from './BeginBttn';
@@ -9,7 +9,7 @@ export const SearchContent = ({setShuffleMode}) => {
     const {artists, fetchIDs} = useContext(GlobalContext);
 
     return (
-        <Fragment>
+        <div className='search-content-container'>
             <Search />
             {   // don't render begin button if no artist has been selected
                 artists.length === 0 
@@ -21,6 +21,6 @@ export const SearchContent = ({setShuffleMode}) => {
                         : <BeginBttn setShuffleMode={setShuffleMode}/>
             }
             <Artists />
-        </Fragment>
+        </div>
     )
 }

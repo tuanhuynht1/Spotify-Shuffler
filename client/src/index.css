@@ -18,15 +18,11 @@ body {
   line-height: 1;
 }
 
-
-/* Main Content
---------------------------------------------------------------------------------------*/
-.main-content  {
-  text-align: center;
-}
-
 /* Search
 --------------------------------------------------------------------------------------*/
+.search-content-container {
+  text-align: center;
+}
 .search-container {
   /* border: thin solid red; */
   min-width: 350px;

@@ -25,13 +25,8 @@ export const Content = () => {
         .catch(e => console.error(e));
     }, [token, setUser]);
 
-    return (
-        <div className='main-content'>
-            {
-                shuffleMode 
-                ? <ShuffleContent/>
+    return ( shuffleMode ? 
+                <ShuffleContent/>
                 : <SearchContent setShuffleMode={setShuffleMode}/>
-            }
-        </div>
     )
 }
