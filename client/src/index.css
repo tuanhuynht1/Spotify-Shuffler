@@ -51,18 +51,15 @@ body {
 .search-item span{
   margin-left: 10px;
 }
+.search-item:hover {
+  background-color: lightgray;
+}
 .blocked {
   background-color: darkgray;
   cursor: default;
 }
-.search-item:hover {
-  background-color: lightgray;
-}
 .blocked:hover {
   background-color: darkgray;
-}
-.search-item:active {
-  background-color: aquamarine;
 }
 
 /* Artists
@@ -92,6 +89,40 @@ body {
 .artist-item button{
   margin: 0 0 10px;
 }
+
+/* Shuffle
+--------------------------------------------------------------------------------------*/
+.shuffle-content-container {
+  text-align: center;
+}
+.picks-showcase {
+  /* border: thin solid black; */
+  width: 85%;
+  min-width: 500px;
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+}
+.pick-item {
+  margin: 0 auto;
+  padding: 5px;
+  text-align: center;
+  width: 20%;
+  min-width: 220px;
+}
+.pick-item:hover {
+  filter: brightness(120%);
+}
+.pick-item img{
+  cursor: pointer;
+}
+.pick-item h2{
+  font-size: small;
+  margin: 5px 0;
+}
+
+
 
 /* Misc Buttons
 --------------------------------------------------------------------------------------*/

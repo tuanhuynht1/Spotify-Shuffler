@@ -8,17 +8,18 @@ export const Pick = ({song, index, setLockStatus}) => {
         setLocked(song.locked)
     }, [song])
 
-    const color = locked ? {color:'red'} : {color:'black'};
+    const textColor = locked ? {color:'white'} : {color:'black'};
+    const bgColor = locked ? {backgroundColor:'black', filter: 'brightness(120%)'} : {backgroundColor:'white'};
 
     return(
-        <div> 
-            <img src={song.image.url}  width='100px' alt={song.name}/> 
-            <span style={color}>{song.name}</span>
-            {
-                locked 
-                    ? <button onClick={() => {setLockStatus(index, false); setLocked(false)} }>unlock</button>
-                    : <button onClick={() => {setLockStatus(index, true); setLocked(true)} }>lock</button>
-            } 
+        <div className='pick-item' style={bgColor}> 
+            <img 
+                src={song.image.url}  width='200px' height='200px' alt={song.name}
+                onClick = {locked ? 
+                            () => {setLockStatus(index, false); setLocked(false)}
+                            : () => {setLockStatus(index, true); setLocked(true)}}
+            /> 
+            <h2 style={textColor}>{song.name}</h2>
         </div>
     )
 }

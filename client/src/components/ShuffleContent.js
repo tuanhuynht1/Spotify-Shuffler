@@ -1,10 +1,10 @@
-import React, {Fragment, useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {GlobalContext} from '../GlobalContext';
 import {Pick} from './Pick';
 import {PlaylistModal} from './PlaylistModal';
 
 export const ShuffleContent = () => {
-    const playlist_size = 6;
+    const playlist_size = 10;
     const {tracks, setTracks} = useContext(GlobalContext);
     const [picks, setPicks] = useState([]);
 
@@ -53,14 +53,10 @@ export const ShuffleContent = () => {
         setPicks(temp);
     }
 
-    // const saveToPlaylist = () => {
-
-    // }
-
     // initial shuffle
     useEffect(() => {
         let initialpicks = [];
-        for (let i = 0; i < 6; i++){
+        for (let i = 0; i < playlist_size; i++){
             // if there are songs left, pick a random song to fill initial picks
             if (tracks.length === 0){
                 break;
@@ -73,7 +69,7 @@ export const ShuffleContent = () => {
     console.log(picks);
 
     return (
-        <Fragment>
+        <div className='shuffle-content-container'>
             {/* if there available songs to shuffle, render shuffle button */}
             {tracks.length ?
                 <button onClick={shuffle}>Shuffle</button>
@@ -81,10 +77,12 @@ export const ShuffleContent = () => {
             }
 
             {/* render picks */}
-            {picks.map( (song,i) => <Pick song={song} key={i} index={i} setLockStatus={setLockStatus}/>)}
-            
+            <div className='picks-showcase'>
+                {picks.map( (song,i) => <Pick song={song} key={i} index={i} setLockStatus={setLockStatus}/>)}
+            </div>
+
             <PlaylistModal songs={picks}/>
 
-        </Fragment>
+        </div>
     )   
 }
