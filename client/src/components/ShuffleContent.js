@@ -1,6 +1,7 @@
 import React, {Fragment, useState, useContext, useEffect} from 'react';
 import {GlobalContext} from '../GlobalContext';
 import {Pick} from './Pick';
+import {PlaylistModal} from './PlaylistModal';
 
 export const ShuffleContent = () => {
     const playlist_size = 6;
@@ -73,11 +74,17 @@ export const ShuffleContent = () => {
 
     return (
         <Fragment>
-            <button onClick={shuffle}>Shuffle</button>
-            {picks.map( (song,i) => 
-                <Pick song={song} key={i} index={i} setLockStatus={setLockStatus}/>
-            )}
-            <button >Save to Playlist</button>
+            {/* if there available songs to shuffle, render shuffle button */}
+            {tracks.length ?
+                <button onClick={shuffle}>Shuffle</button>
+                :<span></span>
+            }
+
+            {/* render picks */}
+            {picks.map( (song,i) => <Pick song={song} key={i} index={i} setLockStatus={setLockStatus}/>)}
+            
+            <PlaylistModal songs={picks}/>
+
         </Fragment>
     )   
 }

@@ -23,7 +23,7 @@ export const Content = () => {
             console.log(res.data);
         })
         .catch(e => console.error(e));
-    }, [token]);
+    }, [token, setUser]);
 
     return (
         <div className='main-content'>
