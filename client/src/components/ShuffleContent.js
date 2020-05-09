@@ -3,9 +3,9 @@ import {GlobalContext} from '../GlobalContext';
 import {Pick} from './Pick';
 import {PlaylistModal} from './PlaylistModal';
 
-export const ShuffleContent = () => {
+export const ShuffleContent = ({setShuffleMode}) => {
     const playlist_size = 10;
-    const {tracks, setTracks} = useContext(GlobalContext);
+    const {tracks, setTracks, setArtists} = useContext(GlobalContext);
     const [picks, setPicks] = useState([]);
 
     const pickRandom = () => {
@@ -53,6 +53,12 @@ export const ShuffleContent = () => {
         setPicks(temp);
     }
 
+    const reset = () => {
+        setTracks([]);
+        setArtists([]);
+        setShuffleMode(false);
+    }
+
     // initial shuffle
     useEffect(() => {
         let initialpicks = [];
@@ -70,18 +76,20 @@ export const ShuffleContent = () => {
 
     return (
         <div className='shuffle-content-container'>
-            {/* if there available songs to shuffle, render shuffle button */}
-            {tracks.length ?
-                <button onClick={shuffle}>Shuffle</button>
-                :<span></span>
-            }
-
+            
             {/* render picks */}
             <div className='picks-showcase'>
                 {picks.map( (song,i) => <Pick song={song} key={i} index={i} setLockStatus={setLockStatus}/>)}
             </div>
 
+            {/* if there available songs to shuffle, render shuffle button */}
+            {tracks.length ?
+                <button className='shuffle-bttn' onClick={shuffle}>Shuffle</button>
+                :<span></span>
+            }
+
             <PlaylistModal songs={picks}/>
+            <button className='reset-bttn' onClick={reset}>Reset</button>
 
         </div>
     )   

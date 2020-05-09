@@ -18,6 +18,19 @@ body {
   line-height: 1;
 }
 
+/* Login
+--------------------------------------------------------------------------------------*/
+.login-container {
+  text-align: center;
+  margin: 40vh auto;
+}
+.login-container h1{
+  font-size: 60px;
+}
+.login-container a{
+  font-size: x-large;
+}
+
 /* Search
 --------------------------------------------------------------------------------------*/
 .search-content-container {
@@ -133,9 +146,19 @@ body {
   margin: 10px 0;
 
 }
+#sign-out {
+  display: inline-block;
+  margin: 10px 10px 0;
+  cursor: pointer;
+  color: blue;
+}
+
 
 /* Playlist Modal
 --------------------------------------------------------------------------------------*/
+#playlist-save-bttn{
+  margin: 0 5px;
+}
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -157,6 +180,22 @@ body {
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+}
+.playlist-modal-content input{
+  display: block;
+  width: 90%;
+  margin: 10px;
+  height: 30px;
+}
+
+.save-bttn {
+  background-color: rgb(17, 212, 17);
+  cursor: pointer;
+}
+
+.inactive {
+  filter: brightness(50%);
+  cursor: default;
 }
 
 /* The Close Button */

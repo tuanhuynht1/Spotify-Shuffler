@@ -13,12 +13,15 @@ export const Pick = ({song, index, setLockStatus}) => {
 
     return(
         <div className='pick-item' style={bgColor}> 
-            <img 
-                src={song.image.url}  width='200px' height='200px' alt={song.name}
-                onClick = {locked ? 
-                            () => {setLockStatus(index, false); setLocked(false)}
-                            : () => {setLockStatus(index, true); setLocked(true)}}
-            /> 
+            { song.image ?
+                <img 
+                    src={song.image.url}  width='200px' height='200px' alt={song.name}
+                    onClick = {locked ? 
+                                () => {setLockStatus(index, false); setLocked(false)}
+                                : () => {setLockStatus(index, true); setLocked(true)}}
+                />
+                : <div></div>
+            }
             <h2 style={textColor}>{song.name}</h2>
         </div>
     )

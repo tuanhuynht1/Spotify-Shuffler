@@ -73,13 +73,14 @@ export const PlaylistModal = ({songs}) => {
             {/* <!-- Modal content --> */}
             <div className="playlist-modal-content">
                 <span className="close" onClick={closeModal}>&times;</span>
+                <br/>
                 <input id="name" placeholder='Playlist Name' autoComplete='off' onChange={ e => setName(e.target.value)}/>
                 <input id="desc" placeholder='Description' autoComplete='off' onChange={ e => setDescription(e.target.value)}/>
-                { name.trim() !== '' && description.trim() !== '' ?
+                { name.trim() !== '' ?
                     loading ? 
                         <p>loading...</p>
-                        : <button onClick={save} style={{display: 'block'}}>Save</button>
-                    : <p>inactive button</p>
+                        : <button className='save-bttn' onClick={save}>Save</button>
+                    : <button className='save-bttn inactive'>Save</button>
                 }
             </div>
 

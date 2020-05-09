@@ -1,7 +1,8 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, Fragment} from 'react';
 import {SearchContent} from './SearchContent';
 import {ShuffleContent} from './ShuffleContent';
 import {GlobalContext} from '../GlobalContext';
+import {Search} from './Search';
 import axios from 'axios';
 
 export const Content = () => {
@@ -9,7 +10,13 @@ export const Content = () => {
     // switch to shuffle mode after selecting artist and pressing the begin button
     const [shuffleMode, setShuffleMode] = useState(false);
 
-    const { setUser, token } = useContext(GlobalContext);
+    const { user, setUser, token, setToken } = useContext(GlobalContext);
+
+    const signOut = () => {
+        setUser('');
+        setToken('');
+        window.location = '/';
+    }
 
     useEffect(() => {
         axios
@@ -25,8 +32,16 @@ export const Content = () => {
         .catch(e => console.error(e));
     }, [token, setUser]);
 
-    return ( shuffleMode ? 
-                <ShuffleContent/>
-                : <SearchContent setShuffleMode={setShuffleMode}/>
+    return (
+            <Fragment> 
+                <span id='sign-out' onClick={signOut}>Sign Out</span>
+                { user ? <span> | {user.email}</span> : <span></span>}
+                <Search />
+                {
+                    shuffleMode ? 
+                    <ShuffleContent setShuffleMode={setShuffleMode}/>
+                    : <SearchContent setShuffleMode={setShuffleMode}/>
+                }
+            </Fragment>
     )
 }

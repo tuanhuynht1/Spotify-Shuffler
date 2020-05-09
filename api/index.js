@@ -20,7 +20,8 @@ router.get('/login', (req, res) => {
 				response_type: 'code',
 				client_id: client_id,
 				scope: scope,
-				redirect_uri: redirect_uri,
+                redirect_uri: redirect_uri,
+                show_dialog	: true,
 			})
 	);
 });
@@ -33,7 +34,7 @@ router.get('/callback', (req, res) => {
 		form: {
 			code: code,
 			redirect_uri: redirect_uri,
-			grant_type: 'authorization_code',
+            grant_type: 'authorization_code',
 		},
 		headers: {
 			Authorization: 'Basic ' + new Buffer.from(client_id + ':' + client_secret).toString('base64'),

@@ -11,6 +11,9 @@ export const SearchItem = ({artist}) => {
         setFetchIDs(prev =>  [...prev, artist.id] );
         setArtists(prev => [artist, ...prev]);
         
+        // clear search results
+        document.getElementById('search-bar').value = '';
+        
         // get all albums from artist 
         axios
         .get(`api/albums-by-artist/${artist.id}?useParser=true`,{
