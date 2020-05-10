@@ -39,7 +39,6 @@ export const Content = () => {
     return (
             <Fragment> 
                 <span id='sign-out' onClick={signOut}>Sign Out</span>
-                { user === 'guest' ?  <span> | Guest User</span> : <span> | {user.email}</span> }
                 <Search />
                 {
                     shuffleMode ? 
