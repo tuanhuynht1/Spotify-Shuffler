@@ -5,7 +5,7 @@ import {PlaylistModal} from './PlaylistModal';
 
 export const ShuffleContent = ({setShuffleMode}) => {
     const playlist_size = 10;
-    const {tracks, setTracks, setArtists} = useContext(GlobalContext);
+    const {tracks, setTracks, setArtists, user} = useContext(GlobalContext);
     const [picks, setPicks] = useState([]);
 
     const pickRandom = () => {
@@ -88,7 +88,7 @@ export const ShuffleContent = ({setShuffleMode}) => {
                 :<span></span>
             }
 
-            <PlaylistModal songs={picks}/>
+            <PlaylistModal songs={picks} guest={user === 'guest'}/>
             <button className='reset-bttn' onClick={reset}>Reset</button>
 
         </div>

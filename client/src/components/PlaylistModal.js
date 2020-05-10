@@ -2,7 +2,7 @@ import React, {Fragment, useState, useContext} from 'react';
 import {GlobalContext} from '../GlobalContext';
 import axios from 'axios';
 
-export const PlaylistModal = ({songs}) => {
+export const PlaylistModal = ({songs, guest}) => {
 
     const modal = document.getElementById("playlist-modal");
     const [name,setName] = useState('');
@@ -16,12 +16,13 @@ export const PlaylistModal = ({songs}) => {
 
     const closeModal = () => {
         modal.style.display = "none";
-        document.getElementById('name').value = '';
-        document.getElementById('desc').value = '';
-        setName('');
-        setDescription('');
-        setLoading(false);
-        // window.open('https://www.codexworld.com', '_blank');
+        if (user !== 'guest'){
+            document.getElementById('name').value = '';
+            document.getElementById('desc').value = '';
+            setName('');
+            setDescription('');
+            setLoading(false);
+        }
     }
 
     const save = () => {
@@ -71,18 +72,27 @@ export const PlaylistModal = ({songs}) => {
             <div id="playlist-modal" className="modal">
 
             {/* <!-- Modal content --> */}
-            <div className="playlist-modal-content">
-                <span className="close" onClick={closeModal}>&times;</span>
-                <br/>
-                <input id="name" placeholder='Playlist Name' autoComplete='off' onChange={ e => setName(e.target.value)}/>
-                <input id="desc" placeholder='Description' autoComplete='off' onChange={ e => setDescription(e.target.value)}/>
-                { name.trim() !== '' ?
-                    loading ? 
-                        <p>loading...</p>
-                        : <button className='save-bttn' onClick={save}>Save</button>
-                    : <button className='save-bttn inactive'>Save</button>
-                }
-            </div>
+            { guest ?
+                <div className="playlist-modal-content">
+                    <span className="close" onClick={closeModal}>&times;</span>
+                    <p>Sorry, this feature is not available for guest users. 
+                        Sign in with Spotify to save your playlist onto your Spotify Account!</p>
+                </div>
+
+                : <div className="playlist-modal-content">
+                    <span className="close" onClick={closeModal}>&times;</span>
+                    <br/>
+                    <input id="name" placeholder='Playlist Name' autoComplete='off' onChange={ e => setName(e.target.value)}/>
+                    <input id="desc" placeholder='Description' autoComplete='off' onChange={ e => setDescription(e.target.value)}/>
+                    { name.trim() !== '' ?
+                        loading ? 
+                            <p>loading...</p>
+                            : <button className='save-bttn' onClick={save}>Save</button>
+                        : <button className='save-bttn inactive'>Save</button>
+                    }
+                </div>
+            }
+            
 
             </div>
         </Fragment>

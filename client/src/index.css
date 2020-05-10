@@ -22,13 +22,20 @@ body {
 --------------------------------------------------------------------------------------*/
 .login-container {
   text-align: center;
-  margin: 40vh auto;
+  margin: 35vh auto;
 }
 .login-container h1{
   font-size: 60px;
 }
 .login-container a{
   font-size: x-large;
+  color: darkblue;
+}
+.login-container p{
+  cursor: pointer;
+  font-size: x-large;
+  text-decoration: underline;
+  color: darkblue;
 }
 
 /* Search

@@ -11,6 +11,31 @@ require('dotenv').config();
 
 const router = require('express').Router()
 
+// request server to server acess token from spotify, returns json body with access_token object inside 
+router.get('/token', (req,res) => {
+    // configure request to spotify
+    const options  = {
+        'method': 'POST',
+        'url': 'https://accounts.spotify.com/api/token',
+        'headers': {
+          'Authorization': 'Basic ' + new Buffer.from(client_id + ':' + client_secret).toString('base64'),
+        },
+        form: {
+          'grant_type': 'client_credentials'
+        }
+    };
+    // make request to spotify
+    request(options , (error,response) => { 
+        if (!error && response.statusCode === 200) {
+            // send object -> {access_token, type, scope, expire_in}
+            res.send(JSON.parse(response.body));
+        }
+        else{
+            res.status(response.statusCode).send({error: response.statusMessage});
+        }
+    });
+})
+
 router.get('/login', (req, res) => {
 	// scope defines what app can access, add streaming scope for premium
 	const scope = 'playlist-modify-public user-read-private user-read-email user-read-playback-state streaming';
