@@ -1,10 +1,10 @@
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 * {
   box-sizing: border-box;
+}
+:root{
+  --primary-bg-color: #1b1b1b;
+  --spotify-green: #1DB954;
+  --spotify-purple: #af2896;
 }
 html, body, div, img {
   margin: 0;
@@ -12,30 +12,54 @@ html, body, div, img {
   border: 0;
   font-size: 100%;
   font: inherit;
+  font-family: Circular,Helvetica,Arial,sans-serif;
   vertical-align: baseline;
 }
 body {
   line-height: 1;
+  background-color: var(--primary-bg-color);
 }
 
 /* Login
 --------------------------------------------------------------------------------------*/
 .login-container {
   text-align: center;
-  margin: 35vh auto;
+  margin: 25vh auto;
+  color: white;
+  letter-spacing: 2px;
 }
 .login-container h1{
   font-size: 60px;
+  margin-bottom: 70px;
 }
 .login-container a{
-  font-size: x-large;
-  color: darkblue;
+  border: thick solid var(--spotify-green);
+  border-radius: 500px;
+  background-color: var(--spotify-green);
+  padding: 12px 40px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+}
+.login-container a:hover{
+  filter: brightness(120%);
 }
 .login-container p{
+  margin: 50px auto;
+  border-radius: 500px;
+  background-color: var(--spotify-purple);
+  width: 300px;
+  height: 50px;
+  padding: 12px 40px;
   cursor: pointer;
-  font-size: x-large;
-  text-decoration: underline;
-  color: darkblue;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  line-height: 25px;
+}
+.login-container p:hover{
+  filter: brightness(120%);
 }
 
 /* Search

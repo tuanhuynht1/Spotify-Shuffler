@@ -20,8 +20,8 @@ export const Login = () => {
     return (
         <div className='login-container'>
             <h1>Spotify Shuffler</h1>
-            <a href='http://spotify-magic-shuffler.herokuapp.com/api/login'>sign in with spotify</a>
-            <p onClick={guestSignIn}>sign in as a guest</p>
+            <a href='http://localhost:8888/api/login'>SIGN IN WITH SPOTIFY</a>
+            <p onClick={guestSignIn}>SIGN IN AS A GUEST</p>
         </div>
     )
 }
