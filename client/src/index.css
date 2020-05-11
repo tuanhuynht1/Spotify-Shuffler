@@ -3,6 +3,7 @@
 }
 :root{
   --primary-bg-color: #1b1b1b;
+  --secondary-bg-color: #222326;
   --spotify-green: #1DB954;
   --spotify-purple: #af2896;
 }
@@ -18,6 +19,8 @@ html, body, div, img {
 body {
   line-height: 1;
   background-color: var(--primary-bg-color);
+  color: white;
+  letter-spacing: 2px;
 }
 
 /* Login
@@ -25,8 +28,6 @@ body {
 .login-container {
   text-align: center;
   margin: 25vh auto;
-  color: white;
-  letter-spacing: 2px;
 }
 .login-container h1{
   font-size: 60px;
@@ -39,8 +40,8 @@ body {
   padding: 12px 40px;
   font-size: 16px;
   font-weight: 700;
-  color: white;
   text-decoration: none;
+  color: white;
 }
 .login-container a:hover{
   filter: brightness(120%);
@@ -55,7 +56,6 @@ body {
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
-  color: white;
   line-height: 25px;
 }
 .login-container p:hover{
@@ -75,35 +75,60 @@ body {
   text-align: left;
 }
 .search-container input {
-  font-size: large;
-  height: 30px;
-  border: thin solid darkgray;
-  padding: 2px 0 2px 5px;
+  background-color: var(--primary-bg-color);
+  font-size: x-large;
+  color: white;
+  /* height: 40px; */
+  /* border: thin solid white; */
+  border: none;
+  border-bottom: thin solid white;
+  padding: 8px 0 5px 15px;
   width: 100%;
 }
-.search-container input:focus {
-  border: 1px solid purple;
-  outline: none;
+.search-container input:hover {
+  filter: brightness(120%);
 }
+.search-container input:focus {
+  border: none;
+  border-bottom: thick solid white;
+  outline: none;
+  filter: none;
+}
+
 .search-item {
+  display: flex;
+  height: 50px;
+  letter-spacing: 1px;
+  color: white;
+  background-color: var(--secondary-bg-color);
   font-size: larger;
-  border: thin solid black;
+  border-bottom: medium solid black;
+  border-left: thin solid white;
+  border-right: thin solid white;
   padding: 6px;
   cursor: pointer;
   padding: 5px 2px 0 2px;
 }
+.search-item:last-of-type{
+  border-bottom: thin solid white;
+}
+.search-item img{
+  margin: 5px;
+}
 .search-item span{
   margin-left: 10px;
+  line-height: 50px;
 }
 .search-item:hover {
-  background-color: lightgray;
+  filter: brightness(120%);
 }
 .blocked {
-  background-color: darkgray;
   cursor: default;
+  text-decoration: line-through;
+  color: gray;
 }
 .blocked:hover {
-  background-color: darkgray;
+  filter: none;
 }
 
 /* Artists
@@ -116,6 +141,7 @@ body {
   margin: 0 auto;
   /* border: thin solid black; */
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .artist-item {
