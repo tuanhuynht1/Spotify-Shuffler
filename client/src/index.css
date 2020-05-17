@@ -71,7 +71,7 @@ body {
   /* border: thin solid red; */
   min-width: 350px;
   width: 60%;
-  margin: 50px auto;
+  margin: 50px auto 30px;
   text-align: left;
 }
 .search-container input {
@@ -143,7 +143,7 @@ body {
   width: 80%;
   min-width: 500px;
   margin: 0 auto;
-  /* border: thin solid black; */
+  /* border: thin solid red; */
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -162,6 +162,17 @@ body {
 }
 .artist-item button{
   margin: 0 0 10px;
+}
+.image-container {
+  position: relative;
+}
+
+.remove-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: red;
+  cursor: pointer;
 }
 
 /* Shuffle
@@ -201,17 +212,24 @@ body {
 /* Misc Buttons
 --------------------------------------------------------------------------------------*/
 .begin-bttn {
-  width: 100px;
-  background-color:purple;
+  margin: 20px auto;
+  border-radius: 500px;
+  background-color: var(--spotify-purple);
   color: white;
-  margin: 10px 0;
-
+  width: 100px;
+  height: 45px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 25px;
+  border: none;
 }
 #sign-out {
   display: inline-block;
   margin: 10px 10px 0;
   cursor: pointer;
-  color: blue;
+  color: red;
 }
 
 
@@ -241,6 +259,7 @@ body {
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+  background-color: var(--primary-bg-color);
 }
 .playlist-modal-content input{
   display: block;

@@ -9,7 +9,7 @@ export const Pick = ({song, index, setLockStatus}) => {
     }, [song])
 
     const textColor = locked ? {color:'white'} : {color:'black'};
-    const bgColor = locked ? {backgroundColor:'black', filter: 'brightness(120%)'} : {backgroundColor:'white'};
+    const bgColor = locked ? {backgroundColor:'var(--spotify-green)', filter: 'brightness(120%)'} : {backgroundColor:'white'};
 
     return(
         <div className='pick-item' style={bgColor}> 
